@@ -26,6 +26,10 @@ export default defineComponent({
                 this.ingredientesSelecionados[ingrediente] = 1;
             }
         },
+        removerIngrediente(ingrediente: string) {
+            // Remove o ingrediente completamente da lista
+            delete this.ingredientesSelecionados[ingrediente];
+        },
         isSelecionado(ingrediente: string) {
             return this.ingredientesSelecionados[ingrediente] > 0;
         }
@@ -56,8 +60,8 @@ export default defineComponent({
             </li>
         </ul>
 
-        <!-- Passa ingredientes selecionados para SuaLista -->
-        <SuaLista :ingredientes="ingredientesSelecionados" />
+        <!-- Passa ingredientes selecionados para SuaLista e ouve o evento de remoção-->
+        <SuaLista :ingredientes="ingredientesSelecionados" @removerIngrediente="removerIngrediente"/>
 
         <p class="dica">
             *Atenção: consideramos que você tenha em casa sal, pimenta e água.

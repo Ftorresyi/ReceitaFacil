@@ -7,6 +7,11 @@ export default {
     props: {
         ingredientes: { type: Object as PropType<Record<string, number>>, required: true }
     },
+    methods: {
+        removerIngrediente(ingrediente: string) {
+            this.$emit('removerIngrediente', ingrediente);
+        }
+    }
 }
 </script>
 
@@ -19,6 +24,9 @@ export default {
         <ul v-if="Object.keys(ingredientes).length" class="ingredientes-sua-lista">
             <li v-for="(quantidade, ingrediente) in ingredientes" :key="ingrediente">
                 <Tag :texto="`${ingrediente} (${quantidade})`" :ativa="true" />
+                <!-- Exibe o ingrediente com a quantidade e o botão de remoção -->
+               <!--  {{ ingrediente }} ({{ quantidade }}) -->
+                <button @click="removerIngrediente(ingrediente)">Remover</button>
             </li>
         </ul>
 
