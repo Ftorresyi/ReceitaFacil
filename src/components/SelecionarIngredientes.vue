@@ -13,16 +13,21 @@ export default defineComponent({
     data() {
         return {
             categorias: [] as ICategoria[], // Lista de categorias
-            ingredientesSelecionados: [] as string[] // Ingredientes selecionados
+            ingredientesSelecionados: {} as Record<string, number> // Objeto para contagem de ingredientes selecionados
         };
     },
     methods: {
         atualizarIngredientes(ingrediente: string) {
-            if (this.ingredientesSelecionados.includes(ingrediente)) {
-                this.ingredientesSelecionados = this.ingredientesSelecionados.filter(item => item !== ingrediente);
+            if (this.ingredientesSelecionados[ingrediente]) {
+                // Incrementa a contagem do ingrediente
+                this.ingredientesSelecionados[ingrediente] += 1;
             } else {
-                this.ingredientesSelecionados.push(ingrediente);
+                // Adiciona o ingrediente com contagem 1
+                this.ingredientesSelecionados[ingrediente] = 1;
             }
+        },
+        isSelecionado(ingrediente: string) {
+            return this.ingredientesSelecionados[ingrediente] > 0;
         }
     },
     async created() {
@@ -44,7 +49,10 @@ export default defineComponent({
 
         <ul class="categorias">
             <li v-for="categoria in categorias" :key="categoria.nome">
-                <CardCategoria v-bind:categoria="categoria" @ingredienteSelecionado="atualizarIngredientes" />
+                <CardCategoria 
+                :categoria="categoria" 
+                @ingredienteSelecionado="atualizarIngredientes"
+                :ingredientesSelecionados="ingredientesSelecionados" />
             </li>
         </ul>
 

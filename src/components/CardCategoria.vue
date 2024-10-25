@@ -5,16 +5,19 @@ import Tag from './Tag.vue';
 //import vue from '@vitejs/plugin-vue';
 
 export default {
-    //props indica que existe uma propriedade q esta sendo usada de um componente para outro. Do outro lado o componente
-    //que quiser usar essa propriedade deve usar o v-bind para se ligar a ele e usar seus atributos/variáveis
     props: {
-        categoria: { type: Object as PropType<ICategoria>, required: true }
+        categoria: { type: Object as PropType<ICategoria>, required: true },
+        ingredientesSelecionados: { type: Object as PropType<Record<string, number>>, required: true }
     },
     components: { Tag },
     
     methods: {
         selecionarIngrediente(ingrediente: string) {
             this.$emit('ingredienteSelecionado', ingrediente);
+        },
+
+        isSelecionado(ingrediente: string) {
+            return this.ingredientesSelecionados[ingrediente] > 0;
         }
     }
 };
@@ -28,11 +31,18 @@ export default {
 
             <h2 class="paragrafo-lg categoria__nome"> {{ categoria.nome }} </h2>
         </header>
+
         <ul class="categoria__ingredientes">
+
             <!-- Cada ingrediente emite um evento de seleção ao ser clicado -->
-            <li v-for="ingrediente in categoria.ingredientes" :key="ingrediente" @click="selecionarIngrediente(ingrediente)">
-                <Tag :texto="ingrediente" />
+
+            <li v-for="ingrediente in categoria.ingredientes"
+                :key="ingrediente"
+                @click="selecionarIngrediente(ingrediente)">
+                <!-- Usa a prop `ativa` para destacar os ingredientes selecionados -->
+                <Tag :texto="ingrediente" :ativa="isSelecionado(ingrediente)" />
             </li>
+            
         </ul>
     </article>
 </template>
