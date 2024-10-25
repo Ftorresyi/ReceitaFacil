@@ -24,9 +24,15 @@ export default {
         <ul v-if="Object.keys(ingredientes).length" class="ingredientes-sua-lista">
             <li v-for="(quantidade, ingrediente) in ingredientes" :key="ingrediente">
                 <Tag :texto="`${ingrediente} (${quantidade})`" :ativa="true" />
+                
                 <!-- Exibe o ingrediente com a quantidade e o botão de remoção -->
-               <!--  {{ ingrediente }} ({{ quantidade }}) -->
-                <button @click="removerIngrediente(ingrediente)">Remover</button>
+                <v-icon
+                    color="red darken-1"
+                    @click="removerIngrediente(ingrediente)"
+                    class="icon-lixeira"
+                >
+                    mdi-delete
+                </v-icon>
             </li>
         </ul>
 
