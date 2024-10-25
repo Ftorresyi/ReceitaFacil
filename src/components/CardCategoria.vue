@@ -10,8 +10,14 @@ export default {
     props: {
         categoria: { type: Object as PropType<ICategoria>, required: true }
     },
-    components: { Tag }
-}
+    components: { Tag },
+    
+    methods: {
+        selecionarIngrediente(ingrediente: string) {
+            this.$emit('ingredienteSelecionado', ingrediente);
+        }
+    }
+};
 </script>
 
 <template>
@@ -23,7 +29,8 @@ export default {
             <h2 class="paragrafo-lg categoria__nome"> {{ categoria.nome }} </h2>
         </header>
         <ul class="categoria__ingredientes">
-            <li v-for="ingrediente in categoria.ingredientes" :key="ingrediente">
+            <!-- Cada ingrediente emite um evento de seleção ao ser clicado -->
+            <li v-for="ingrediente in categoria.ingredientes" :key="ingrediente" @click="selecionarIngrediente(ingrediente)">
                 <Tag :texto="ingrediente" />
             </li>
         </ul>

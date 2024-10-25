@@ -1,23 +1,35 @@
 <script lang="ts">
 import { obterCategorias } from '@/http';
+import { defineComponent } from 'vue';
 import ICategoria from '@/interfaces/ICategoria';
 import CardCategoria from './CardCategoria.vue';
+import SuaLista from './SuaLista.vue';
 
-export default {
-    //As propriedades do objeto retornado no data() são estados.
-    //Propriedades dentro de data são reativas por padrão.
+//Ouvir o evento ingredienteSelecionado e atualizar a lista de ingredientes selecionados. 
+//Este componente será responsável por passar os ingredientes selecionados para SuaLista
+
+export default defineComponent({
+    components: { CardCategoria, SuaLista },
     data() {
         return {
-            categorias: [] as ICategoria[]
+            categorias: [] as ICategoria[], // Lista de categorias
+            ingredientesSelecionados: [] as string[] // Ingredientes selecionados
+        };
+    },
+    methods: {
+        atualizarIngredientes(ingrediente: string) {
+            if (this.ingredientesSelecionados.includes(ingrediente)) {
+                this.ingredientesSelecionados = this.ingredientesSelecionados.filter(item => item !== ingrediente);
+            } else {
+                this.ingredientesSelecionados.push(ingrediente);
+            }
         }
     },
-    //Created Retorna objetos depois de terem sido renderizados e async await fica na escuta aguardando alterações para sincronizar.
-    //Esse método é executado após as propriedades de data() terem sido definidas, sendo assim possível acessá-las e modificá-las.
     async created() {
+        // Carrega as categorias com ingredientes
         this.categorias = await obterCategorias();
-    },
-    components: { CardCategoria }
-}
+    }
+});
 </script>
 
 <template>
@@ -32,9 +44,12 @@ export default {
 
         <ul class="categorias">
             <li v-for="categoria in categorias" :key="categoria.nome">
-                <CardCategoria v-bind:categoria="categoria" />
+                <CardCategoria v-bind:categoria="categoria" @ingredienteSelecionado="atualizarIngredientes" />
             </li>
         </ul>
+
+        <!-- Passa ingredientes selecionados para SuaLista -->
+        <SuaLista :ingredientes="ingredientesSelecionados" />
 
         <p class="dica">
             *Atenção: consideramos que você tenha em casa sal, pimenta e água.

@@ -12,11 +12,6 @@ export default {
 
   <Banner />
 
-
-  <h1 class="titulo">
-    Texto do App.vue
-  </h1>
-
   <ConteudoPrincipal />
 
 </template>

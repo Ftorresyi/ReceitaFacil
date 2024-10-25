@@ -1,4 +1,8 @@
 <script lang="ts">
+
+//Tag é um componente que exibe o nome de cada ingrediente.
+//Ele aceita uma prop ativa para indicar se o ingrediente está selecionado, ajustando o estilo.
+
 export default {
     props: {
         texto: { type: String, required: true },
