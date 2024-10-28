@@ -1,17 +1,21 @@
-import { defineNuxtConfig } from 'nuxt/config';
+// nuxt.config.ts
+import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
-  // Define `src` como o diretório de código-fonte
   srcDir: 'src/',
+  css: [
+    'vuetify/styles', // Vuetify styles
+  ],
 
-  //css: ['@/assets/main.css'], //  arquivos CSS globais, se houver
-  modules: [],
+  build: {
+    transpile: ['vuetify'], // Transpile Vuetify
+  },
 
-  /* build: {
-    transpile: ['@nuxtjs/vuetify'] 
-  }, */
-  // Habilita importação automática de componentes
-  components: true,
+  vite: {
+    ssr: {
+      noExternal: ['vuetify'], // Ensure Vuetify is bundled for SSR
+    },
+  },
 
-  compatibilityDate: '2024-10-27'
-});
+  compatibilityDate: '2024-10-28',
+})

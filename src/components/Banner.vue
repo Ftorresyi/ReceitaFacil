@@ -1,7 +1,7 @@
 <template>
     <header class="banner">
         <div class="apresentacao">
-            <!-- <img src="/images/banner/logo.svg" alt="Logo do Cookin' Up" class="logo"> -->
+            <!-- <img src="/imagens/banner/logo.svg" alt="Logo do Cookin' Up" class="logo"> -->
             <p class="cabecalho-lg">
                 <span class="texto-verde"> Um banquete de ideias para </span>
                 despertar o chefe em você!
@@ -9,9 +9,9 @@
             Explore novas receitas todos os dias com os ingredientes que estão ao seu alcance!
         </div>
 
-      <!--   <img src="/imagens/banner/foto-banner.png" alt="Foto de uma mulher cozinhando com uma bacia de vidro nas mãos."
-            class="foto-banner"> -->
-
+        <!-- <img src="/imagens/banner/foto-banner.png" alt="Foto de uma mulher cozinhando com uma bacia de vidro nas mãos."
+            class="foto-banner">
+ -->
         <h1 class="titulo">
             Texto do Banner.vue
         </h1>

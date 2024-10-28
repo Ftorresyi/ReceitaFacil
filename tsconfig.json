@@ -1,11 +1,24 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
+    "compilerOptions": {
+      "target": "esnext",
+      "module": "esnext",
+      "moduleResolution": "node",
+      "strict": true,
+      "jsx": "preserve",
+      "esModuleInterop": true,
+      "allowJs": true,
+      "skipLibCheck": true,
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["./src/*"] // Mapeia o alias @ para src
+      },
+      "types": ["node", "@nuxt/types"]
     },
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ]
-}
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.vue",
+      "nuxt.config.ts" // Inclui o arquivo de configuração do Nuxt
+    ],
+    "exclude": ["node_modules", ".nuxt", "dist"]
+  }
+  
